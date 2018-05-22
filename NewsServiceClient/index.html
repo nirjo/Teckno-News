@@ -1,0 +1,59 @@
+<html>
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<style>
+			#news_Container{
+				display: flex;
+				flex-wrap: nowrap;
+			}
+			#nt_container{
+				border:1px solid red;
+			}
+			#expressen_container{
+				border:1px solid green;
+			}
+			#svd_container{
+				border:1px solid green;
+			}
+			.newsHeader{
+				border:1px solid yellow;
+			}
+			.newsList{
+				border:1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="news_Container" ng-app="myApp" ng-controller="myCtrl" class="myContainer"> 
+				<div id="nt_container" class="newsContainer">
+					
+					
+					<div class="newsHeader">NT</div>
+					<div class="newsList">
+						
+						<ul  ng-repeat="item in items" >
+							<li>{{item.Title}}</li>
+							
+						</ul>
+					</div>
+				</div>
+				
+	
+	
+		
+	</div>
+	</body>
+	
+		<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $http) {
+		  $http.get("http://localhost/NewsServiceImpl.svc/json/nt")
+		  .then(function(response) {
+			  //$scope.myWelcome = response.data;
+			  console.log(JSON.stringify(response));
+			  $scope.items = response.data.JSONDataResult;
+			  
+		  });
+		});
+		</script>
+</html>
